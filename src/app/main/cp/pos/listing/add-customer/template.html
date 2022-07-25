@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Create New Product Type</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content class="mat-typography" style="width: 700px;">
+   
+    <form name="form" [formGroup]="form" (ngSubmit)="select()" fxLayout="row wrapper">
+
+
+        <!-- ===============================================================>> Discount -->
+
+        <mat-form-field appearance="outline" fxFlex="100" >
+            <mat-label>Customer</mat-label>
+            <mat-select  (selectionChange) = " onSelectChange($event) " >
+                <mat-option *ngFor = " let row of customer " [value] = " row " > {{ row?.name }}</mat-option>
+            </mat-select>   
+        </mat-form-field>
+
+        
+
+    </form>
+
+    <mat-divider></mat-divider>
+    
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions align="end">
+    
+    <!-- <button mat-button  (click)= " select() " >
+        <span>Select</span>
+    </button> -->
+    
+    <button mat-button [disabled] = " isSaving " [mat-dialog-close]=" false "  cdkFocusInitial>Close</button>
+
+</mat-dialog-actions>

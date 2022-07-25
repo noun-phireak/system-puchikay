@@ -1,0 +1,28 @@
+<div class="p-8 m-8" style="border: 1px solid #80808047; cursor: pointer" (click) = " onOutput() " >
+    <div class="text-center mb-8" style="border-bottom: 1px solid #80808047;" >
+        <span>{{ data?.name }}</span>
+    </div>
+    <div>
+        <img [src] = " 'http://127.0.0.1:8081/'+data?.image " />
+    </div>
+    
+    <div fxLayout="row" class=" mt-8 pt-8" style="border-top: 1px solid #80808047;" >
+        <div fxFlex fxLayout="column">
+            <b>{{ data?.unit_price | number }} KHR</b>
+            <div *ngIf="data.qty !== 0">
+                (
+                    <b style="color: green;">{{ data?.qty | number }} Items</b>
+                )
+                
+            </div>
+            <div *ngIf="data.qty == 0">
+                <b style="color: red;">Out of Stock</b>
+            </div>
+            
+        </div>
+        
+        <div fxFlex class="text-right" >
+            <mat-icon class="secondary-text s-30">add_shopping_cart</mat-icon>
+        </div>
+    </div>
+</div>

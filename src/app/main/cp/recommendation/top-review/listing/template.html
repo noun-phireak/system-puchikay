@@ -1,0 +1,87 @@
+
+<div class="content-cnt page-layout blank">
+
+    <div  class="header  p-24 h-80" fxLayout="row" fxLayoutAlign="start center"  >
+        <div fxFlex="50"  >
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-18">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Recommendation</span>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Top Review</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" >
+        <div  class="tab-content p-24">
+
+            <section class="listing" >
+
+                <div *ngIf = " isSearching " >
+                    <mat-spinner style="margin:auto" diameter = " 100 " ></mat-spinner>
+                </div>
+                
+                <table *ngIf = " !isSearching && data?.length > 0 " class="proposal-value-table" >
+           
+                    <thead>
+                        <tr>
+                            <th class="">ល.រ</th>
+                            <th class="text-center">រូបភាព</th>
+                            <th class="text-left">ផលិតផល</th>
+                            <th class="text-left">កម្រិត</th>
+                            <th class="text-right">មធ្យមភាគ</th>
+                            <th class="text-right">ចំនួន Reviews(ដង)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+        
+        
+                        <tr *ngFor="let row of data; let i = index; " [attr.data-index]="i">
+                            <td >{{ i + 1 }}</td>
+                            <td > 
+                                <div class="p-8 text-center" >
+                                    <img [src] = " fileUrl+'/'+row?.image " style="width:80px" />
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <b>{{ row?.name }}</b><br />
+                                <span style="font-size:10px; color:grey" >{{ row?.rate?.category?.name }}</span>
+                            </td>
+                            <td class="text-centter"> <b [ngStyle]="{ 'color': row?.rate?.color}"
+                                >{{ row?.rate?.name}}</b> </td>
+                            <td class="text-right">{{ row?.rate_score }}</td>
+                            <td class="text-right">{{ row?.n_of_reviews }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">Total :   </td>
+                            <td class="text-right">
+                                <b style="color: blue;">{{nOfReview}}</b>
+                            </td>
+                        </tr>
+
+                    </tbody>
+        
+                </table>
+
+                <ng-container *ngIf=" data?.length == 0 && !isSearching ">
+                    <div fxLayout="column" fxLayoutAlign="center center" fxflex>
+                        <mat-icon role="img" class="mat-icon notranslate s-100 mb-16 select-message-icon hint-text material-icons mat-icon-no-color" aria-hidden="true"> toc </mat-icon>
+                        <span class="select-message-text hint-text"><span>No Data</span></span>
+                    </div>
+                    
+                </ng-container>
+
+
+
+            </section>
+            
+        </div>
+    </div>
+    
+</div>
+

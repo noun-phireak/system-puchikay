@@ -1,0 +1,129 @@
+
+<div class="content-cnt page-layout blank">
+
+    <div  class="header  p-24 h-80" fxLayout="row" fxLayoutAlign="start center"  >
+        <div fxFlex="50"  >
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-18">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">ផលិតផលទំាងអស់</span>
+            </div>
+        </div>
+
+        <div fxFlex="50" class="text-right"  >
+            <button  mat-stroked-button color="accent" (click) = " openCreateForm() ">
+                <mat-icon class="material-icons">add</mat-icon><span>Create New Product</span> 
+            </button>
+        </div>
+    </div>
+
+    <div class="content" >
+        <div  class="tab-content p-24">
+
+            <section class="filter">
+                <div fxLayout="row " fxLayoutAlign="start center"  >
+
+                    <div fxFlex="20" class="mr-8" >
+                        <mat-form-field style="width:100%" >
+                            <mat-label > Name </mat-label>
+                            <input matInput [(ngModel)]=" name " maxlength="100">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="20" class="mr-8" >
+                        <mat-form-field style="width:100%" >
+                            <mat-label>Type</mat-label>
+                            <mat-select [(ngModel)] = " type "  >
+                                <mat-option [value] = " 0 " > All</mat-option>
+                                <mat-option *ngFor = " let row of types " [value] = " row.id " > {{ row?.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                           
+                    </div>
+                                      
+                    <div fxFlex  >
+                        <button [disabled] = " isSearching " mat-icon-button (click)=" listing()" > <mat-icon  class="mat-icon  s-40 btn-icon-searching-search" >search</mat-icon></button> &nbsp;             
+                    </div>                    
+                </div>
+            </section>
+
+            <section class="listing" >
+
+                <div *ngIf = " isSearching " >
+                    <mat-spinner style="margin:auto" diameter = " 100 " ></mat-spinner>
+                </div>
+                
+                <table *ngIf = " !isSearching && data?.length > 0 " class="proposal-value-table" >
+           
+                    <thead>
+                        <tr>
+                            <th class="text-center">រូបភាព</th>
+                            <th class="text-left">ផលិតផល</th>
+                            <th class="text-left">អ្នកផ្គត់ផ្គង់</th>
+                            <th class="text-right">តម្លៃរាយ (KHR)</th>
+                            <th class="text-right">មានក្នុងស្តុក</th>
+                            <th class="text-right">ទំហំទឺកប្រាក់ (KHR)</th>
+                            <th class="text-right">Reviews</th>
+                            <th ></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+        
+                        <tr *ngFor="let row of data; let i = index; " [attr.data-index]="i">
+
+                            <td > 
+                                <div class="p-8 text-center" >
+                                    <img [src] = " fileUrl+'/'+row?.image " style="width:80px" />
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <b>{{ row?.name }}</b><br />
+                                <span style="font-size:10px; color:grey" >{{ row?.category?.name }}</span>
+                            </td>
+                            <td class="text-left">{{ row?.supplier?.name }}</td>
+                            <td class="text-right">{{ row?.unit_price | number }} <span *ngIf= " row?.discount > 0 " >({{ row?.discount | number }}off)</span></td>
+                            <td class="text-right">{{row?.qty}}</td>
+                            <td class="text-right">
+                                {{ row?.total_order | number }} 
+                                <span style="font-size:10px; color:grey" >({{ row?.n_of_orders | number }}ដង)</span>
+                            </td>
+                            <td class="text-right">
+                                {{ row?.rate_score }} 
+                                <span style="font-size:10px; color:grey" >({{ row?.n_of_reviews | number }}ដង)</span>
+                            </td>
+
+                            <td class="text-right">
+                                <button  mat-icon-button color="accent"  [routerLink]="['/cp/products/all/'+row?.id]" matTooltip="view">
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                                <button  mat-icon-button color="warn" (click)="onDelete(row)"   matTooltip="delete">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                           
+                        </tr>
+
+                    </tbody>
+        
+                </table>
+                <div fxLayoutAlign="end end">
+                    <tr *ngIf = " !isSearching " style="align-content: flex-end;">
+                        <app-paginator  [length]="total" [page]="page" [limit]="limit" (pageChanged)="onPageChanged($event)"></app-paginator>
+                    </tr>
+                </div>
+
+                <ng-container *ngIf=" data?.length == 0 && !isSearching ">
+                    <div fxLayout="column" fxLayoutAlign="center center" fxflex>
+                        <mat-icon role="img" class="mat-icon notranslate s-100 mb-16 select-message-icon hint-text material-icons mat-icon-no-color" aria-hidden="true"> toc </mat-icon>
+                        <span class="select-message-text hint-text"><span>No Data</span></span>
+                    </div>
+                </ng-container>
+
+            </section>
+            
+        </div>
+    </div>
+    
+</div>
+

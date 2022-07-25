@@ -1,0 +1,110 @@
+<div class="dashboard" fxLayout="column" fxFlex="100" >
+ 
+        <div fxLayout="row wrap" fxLayoutAlign="center">
+            <div fxFlex="30" class="report">
+                <div class="fuse-widget-front">
+                    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+
+                    </div>
+
+                    <div class="pt-8 pb-8" fxLayout="column" fxLayoutAlign="center center">
+                        <div class="light-blue-fg font-size-72 line-height-72">
+                            {{ data?.totalOrderToday }}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">Total Sales Today
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="30" class="report">
+                <div class="fuse-widget-front">
+                    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                    </div>
+
+                    <div class="pt-8 pb-0" fxLayout="column" fxLayoutAlign="center center">
+                        <div class="red-fg font-size-72 line-height-72">
+                            {{ data?.totalOrder | number }}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">Total Sales
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            <div fxFlex="30" class="report">
+
+                <div class="fuse-widget-front">
+                    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                    </div>
+                    <div class="pt-8 pb-0" fxLayout="column" fxLayoutAlign="center center">
+                        <div class="orange-fg font-size-72 line-height-72">
+                            {{ data?.todayIncome }}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">Total Income Today (KHR)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+
+            <div fxFlex="46" class="report">
+                <div fxLayoutAlign="center" class="pb-20">
+                    <ngx-charts-pie-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="single"
+                    [gradient]="gradient"
+                    [legend]="showLegend"
+                    [legendPosition]="legendPosition"
+                    [labels]="showLabels"
+                    [doughnut]="isDoughnut"
+                    (select)="onSelect($event)"
+                    (activate)="onActivate($event)"
+                    (deactivate)="onDeactivate($event)"
+                    >
+                    </ngx-charts-pie-chart>
+                </div>
+            </div>
+            <div fxFlex="46" class="report">
+                <div class="fuse-widget-front">
+                    <table class="value-table" >
+                        <thead>
+                            <tr>
+                                <th class="text-center">Invoice ID</th>
+                                <th class="text-center">Customer</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Total Price (KHR)</th>
+                                <th class="text-center">Discount (%)</th>
+                                
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let row of orderData; let i = index; " [attr.data-index]="i">
+    
+                                <td class="text-center">{{ row?.receipt_number }}</td>
+                                <td class="text-center" style="color: chocolate;"><b>{{ row?.customer?.user?.name }}</b></td>
+                                <td class="text-center"><span [ngStyle]="{ 'color': row?.status_id == 1 ? 'green':'red'  }"
+                                     >{{ row?.status?.name}}</span>
+                                </td>
+                                <td class="text-center">{{ row?.total_price | number }} </td>
+                                <td class="text-center">{{ row?.discount | number }}%</td>
+                                <td class="text-right">   
+                                    <button  mat-icon-button color="accent"  (click) = "printOrderPDF(row.id)" matTooltip="Print">
+                                    <mat-icon>print</mat-icon>
+                                    </button>
+                                </td>
+                               
+                            </tr>
+    
+                        </tbody>
+
+                    </table>
+                   
+                </div>
+            </div>
+        </div>
+</div>

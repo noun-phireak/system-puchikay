@@ -1,0 +1,31 @@
+<div class="content-cnt page-layout blank">
+   <div class="header accent p-24 h-80" fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="50">
+         <div fxLayout="row" fxLayoutAlign="start center">
+             <mat-icon class="secondary-text s-18">home</mat-icon>
+             <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+             <span class="secondary-text">ផលិតផល</span>
+         </div>
+     </div>
+   </div>
+
+   <div class="content" >
+      <div  class="tab-content p-24">
+         <div *ngIf = " isLoading " >
+            <mat-spinner style="margin:auto" diameter = " 50 " ></mat-spinner>
+         </div>
+         <mat-tab-group *ngIf = " !isLoading ">
+
+            <mat-tab label="Overview">
+               <ng-container *ngIf = "data">
+                  <overview-officer [data] = "data" [id]="data?.id"></overview-officer>
+               </ng-container>            
+            </mat-tab>
+            <mat-tab label="Reviews">
+               <review-product  [data]="data?.reviews"></review-product>
+            </mat-tab>
+         </mat-tab-group>
+      </div>
+
+   </div>
+</div>
