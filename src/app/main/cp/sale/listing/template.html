@@ -20,23 +20,25 @@
 
                     <div fxFlex="20" class="mr-8" >
                         <mat-form-field style="width:100%" >
-                            <mat-label > Receipt Number </mat-label>
+                            <mat-label > លេខវិក័យបត្រ </mat-label>
                             <input matInput [(ngModel)]=" receipt_number " maxlength="100">
                         </mat-form-field>
                     </div>
 
                     <div fxFlex="20" class="mr-8" >
                         <mat-form-field style="width:100%" >
-                            <mat-label>Status</mat-label>
-                            <mat-select [(ngModel)] = " status "  >
-                            <mat-option *ngFor = " let row of statusType " [value] = " row.id " > {{ row?.name }}</mat-option>
+                            <mat-label>ស្ថានភាព</mat-label>
+                            <mat-select [(ngModel)] = " status "  class="option">
+                            <mat-option  *ngFor = " let row of statusType " [value] = " row.id " > {{ row?.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                            
                     </div>
-                   
-                    <div fxFlex  >
-                        <button [disabled] = " isSearching " mat-icon-button (click)=" listing()" > <mat-icon  class="mat-icon  s-40 btn-icon-searching-search" >search</mat-icon></button> &nbsp;             
+
+                    <div fxFlex >
+                        <button [disabled] = " isSearching " mat-mini-fab color="accent" (click)=" listing()" class="search-button" > 
+                            <mat-icon>search</mat-icon>
+                        </button> 
                     </div>                    
                 </div>
             </section>

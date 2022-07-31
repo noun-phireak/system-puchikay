@@ -161,8 +161,8 @@ export const cpNavigation: FuseNavigation[] = [
             },
             {
                 id       : 'my-profile',
-                title    : 'My Profile',
-                translate: 'My Profile',
+                title    : 'អំពិខ្ញុំ',
+                translate: 'អំពីខ្ញុំ',
                 type     : 'item',
                 icon     : 'person',
                 url      : '/my-profile',

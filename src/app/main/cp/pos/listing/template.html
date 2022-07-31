@@ -16,9 +16,8 @@
     </div>
 
     <div class="content" >
-        <div  class="tab-content p-24" fxLayout="row" fxLayoutAlign="start start"  >
 
-           
+        <div  class="tab-content p-24" fxLayout="row" fxLayoutAlign="start start"  >
 
             <!-- =========================================================================>> Product Listing -->
             <div fxFlex="65" >
@@ -26,20 +25,22 @@
                 <mat-tab-group>
 
                     <mat-tab label="Products">
-
-                        <div class="mt-8" fxLayout="row " fxLayoutAlign="start center" >
-                            <div fxFlex="40" >
+                        <ng-container *ngIf="isSearching">
+                            <div style="margin-top: 10px;">
+                                <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+                            </div>
+                        </ng-container>
+    
+                        <div fxLayout="row " fxLayoutAlign="start center" style="margin-top: 10px;">
+                            <div fxFlex="40">
                                 <mat-form-field style="width:100%;" appearance="outline">
-                                    <mat-label> Search</mat-label>
-                                    <div fxLayout="row ">
-                                        <input matInput [(ngModel)]=" key " maxlength="100">
-                                        <button [disabled] = " isSearching " mat-icon-button (click)=" listing()" > 
-                                            <mat-icon class="mat-icon  s-40 btn-icon-searching-search" >search</mat-icon>
-                                        </button>
-                                    </div>
+                                    <mat-label>ស្វែងរក</mat-label>
+                                        <input matInput placeholder="ស្វែងរក" [(ngModel)]=" key " maxlength="100">
                                 </mat-form-field>
-                               
-                            </div>   
+                            </div>
+                            <button [disabled] = " isSearching " mat-mini-fab color="accent" (click)=" listing()" class="search-button" > 
+                                <mat-icon>search</mat-icon>
+                            </button>  
 
                         </div>
 

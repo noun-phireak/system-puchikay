@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
     
     ngOnInit(): void {
 
+        console.log(this.hide)
     
         if(localStorage.getItem('temp-token')){
             this._route.navigate(['cp/dashboard']);
@@ -96,7 +97,6 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('temp-token', res.token);
                 localStorage.setItem('name', res.user.name);
                 localStorage.setItem('role', res.user.type);
-                console.log(res.role)
                 this.isLoading = false; 
                 this._snackBar.open('Successful Login!', 'Close', {duration: 5000, panelClass: ['green-bg']});
                 window.location.reload();
